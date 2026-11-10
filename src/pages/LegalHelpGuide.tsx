@@ -6,6 +6,9 @@ interface GuideArticle {
   title: string;
   summary: string;
   keyTakeaways: string[];
+  externalGuideUrl: string;
+  sourceLabel: string;
+  jurisdictionNote?: string;
 }
 
 const guideData: GuideArticle[] = [
@@ -21,6 +24,9 @@ const guideData: GuideArticle[] = [
       "No citizen should be arrested in lieu of a suspect (arrest by proxy is illegal).",
       "Police must grant access to a legal practitioner before statement taking.",
     ],
+    externalGuideUrl:
+      "https://justice.gov.ng/wp-content/uploads/2020/09/Administration-of-Justice-Criminal-Act-2015.pdf",
+    sourceLabel: "Administration of Criminal Justice Act (ACJA) – Federal Ministry of Justice",
   },
   {
     id: "guide-2",
@@ -34,6 +40,11 @@ const guideData: GuideArticle[] = [
       "Locking out tenants or removing property constitutes unlawful self-help.",
       "Tenants can seek emergency injunctions against harassing landlords.",
     ],
+    externalGuideUrl:
+      "https://lagosstatemoj.org/wp-content/uploads/2020/12/Tenancy-Law-2011.pdf",
+    sourceLabel: "Lagos State Tenancy Law 2011 – Lagos State Ministry of Justice",
+    jurisdictionNote:
+      "The statutory provisions above reflect the Lagos State Tenancy Law 2011. Please note that tenancy and recovery of premises laws vary between Nigerian states. For properties located outside Lagos State, consult your state's respective Rent Control and Recovery of Residential Premises laws.",
   },
   {
     id: "guide-3",
@@ -47,6 +58,9 @@ const guideData: GuideArticle[] = [
       "Female workers are entitled to maternity leave without threat of dismissal.",
       "Arbitrary dismissal without cause can be challenged at the National Industrial Court (NICN).",
     ],
+    externalGuideUrl:
+      "https://placng.org/lawsofnigeria/laws/L1.pdf",
+    sourceLabel: "Labour Act (Cap L1, Laws of the Federation of Nigeria) – PLAC Legal Repository",
   },
   {
     id: "guide-4",
@@ -60,6 +74,8 @@ const guideData: GuideArticle[] = [
       "Tax Identification Number (TIN) is mandatory for official banking.",
       "Trademarks protect your brand logo and trading name from infringement.",
     ],
+    externalGuideUrl: "https://www.cac.gov.ng/",
+    sourceLabel: "Corporate Affairs Commission (CAC) Official Regulatory Portal",
   },
 ];
 
@@ -193,6 +209,45 @@ const LegalHelpGuide: React.FC = () => {
                             </li>
                           ))}
                         </ul>
+                      </div>
+
+                      {/* State Jurisdiction Notice (for Tenancy & Housing) */}
+                      {guide.jurisdictionNote && (
+                        <div className="p-3 bg-amber-50/80 border border-amber-200/80 rounded-lg text-[11px] sm:text-xs text-amber-900 leading-relaxed">
+                          <strong className="font-semibold text-amber-950">Jurisdiction Notice: </strong>
+                          {guide.jurisdictionNote}
+                        </div>
+                      )}
+
+                      {/* External Full Guide Link */}
+                      <div className="pt-3 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <span className="text-[11px] sm:text-xs text-slate-500">
+                          Primary Source: <span className="font-medium text-slate-700">{guide.sourceLabel}</span>
+                        </span>
+                        <a
+                          href={guide.externalGuideUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0F2B5B] hover:text-[#D4AF37] transition-colors group self-start sm:self-auto"
+                          aria-label={`Read the full legal guide on ${guide.title} (opens in a new tab)`}
+                        >
+                          <span>Read the Full Guide</span>
+                          <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                          <svg
+                            className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#D4AF37] transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            aria-hidden="true"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                          </svg>
+                        </a>
                       </div>
                     </div>
                   )}
